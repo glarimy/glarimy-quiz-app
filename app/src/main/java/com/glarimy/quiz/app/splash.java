@@ -5,14 +5,16 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class splash extends AppCompatActivity {
-
+public class splash extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable()
+        {
             @Override
             public void run() {
                 startActivity(new Intent(splash.this,MainActivity.class));
@@ -20,5 +22,4 @@ public class splash extends AppCompatActivity {
             }
         },4000);
     }
-
 }
