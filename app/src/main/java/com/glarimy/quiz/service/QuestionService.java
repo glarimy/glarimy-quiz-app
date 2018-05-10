@@ -1,84 +1,36 @@
 package com.glarimy.quiz.service;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.widget.Toast;
+import com.glarimy.quiz.model.Answer;
+import com.glarimy.quiz.model.Question;
 
+/**
+ * *This service helps to get the data from cloud.
+ *Author:venu
+ * Since:2018
+ *
+ */
 public interface QuestionService {
-    public  boolean isConntected(Context context);
-    public int get();
-    public int getAnswer();
-}
-class QuestionServic extends BroadcastReceiver implements QuestionService{
     /**
-     * <h1>onReceive</h1>
-     * <p>
-     * calls all the registered broadast recivers.
-     * </p>
+     * Returns a question when quiz is started.
+     * Parameters:None
      *
-     *
-     * @param context allows access to application specific resources.
-     * @param intent unused.
-     *
-     * @since 2018-05-09.
+     * Return:question gets when called
      */
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (isConntected(context)){
-            // if connected with internet
-            Toast.makeText(context, " Connected ", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(context, " Not Connected ", Toast.LENGTH_LONG).show();
-        }
-    }
+    public Question get();
 
     /**
-     *<h1>isConnected</h1>
      *
-     * <p>this method is used to check the active network connection
-     * it works for both wi-fi and mobile data.</p>
-     *
-     *
-     * @param context allows access to application specific resources.
-     * @return boolean.
-     *
-     *
-     * @since 2081-05-09.
+     * Returns the answer
+     * Parameters:
+     * questionid:for every we have a unique id base on id we retrive the answer.
+     * Return:the answer
      */
-    @Override
-    public boolean isConntected(Context context) {
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        // Check for network connections
-        assert connec != null;
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+    public Answer getAnswer(int questionid);
 
-            // if connected with internet
-            Toast.makeText(context, " Connected ", Toast.LENGTH_LONG).show();
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public int get() {
-        return 0;
-    }
-
-    @Override
-    public int getAnswer() {
-        return 0;
-    }
+    /**
+     *It returns the network status of the user.
+     * Parameters:None
+     * Return:user is having active connection or not
+     */
+    public boolean isConntected();
 }

@@ -1,25 +1,16 @@
 package com.glarimy.quiz.service;
 
-import android.content.Context;
+import com.glarimy.quiz.model.Answer;
+import com.glarimy.quiz.model.Score;
 
 public interface ScoringService {
-
-
-    public int evaluate();
-
-}
-class ScoringServic implements ScoringService{
     /**
-     * <h1>evaluate</h1>
+     * It returns the score
+     * Parameters:
+     * Answer:get the ticked option from Answer service.
      *
-     * <p>
-     *     not at done
-     * </p>
-     * @return integer.
+     * Return:gives the score after evaluating.
      */
-    @Override
-    public int evaluate() {
-        return 0;
-    }
-}
+    public Score evaluate(Answer answer);
 
+}
