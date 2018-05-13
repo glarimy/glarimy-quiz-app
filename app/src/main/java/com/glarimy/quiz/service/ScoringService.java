@@ -11,7 +11,7 @@ public interface ScoringService {
      * Answer:get the ticked option from Answer service.
      *
      * Return:return true or flase.
-     * 
+     *
      */
     public boolean evaluate(Answer answer);
     /**

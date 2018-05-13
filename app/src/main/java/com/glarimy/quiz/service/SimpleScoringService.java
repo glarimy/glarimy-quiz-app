@@ -9,12 +9,35 @@ protected Score currentScore;
 
     @Override
     public boolean evaluate(Answer answer) {
-        return false;
+       int  val= answer.getTickedOption();
+        int val1=answer.getCorrectOption();
+
+        if(val==val1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
     @Override
-    public Score getCurrentScore() {
-        return null;
+    public Score getCurrentScore()
+    {
+        Answer answer=new Answer();
+        currentScore=new Score();
+        if (evaluate(answer))
+        {
+            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints()+1);
+
+        }else {
+            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints());
+        }
+
+        currentScore.setNumberOfPoints(currentScore.getNumberOfAttempts()+1);
+        return currentScore;
 
     }
 }
