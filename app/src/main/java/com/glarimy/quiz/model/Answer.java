@@ -3,6 +3,7 @@ package com.glarimy.quiz.model;
 import java.io.Serializable;
 
 public class Answer implements Serializable {
+
     protected int questionId;
     protected int correctOption;
     protected int tickedOption;

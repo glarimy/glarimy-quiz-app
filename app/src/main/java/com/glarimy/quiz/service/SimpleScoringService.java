@@ -5,8 +5,6 @@ import com.glarimy.quiz.model.Score;
 
 public  class SimpleScoringService implements ScoringService {
 protected Score currentScore;
-
-
     @Override
     public boolean evaluate(Answer answer) {
        int  val= answer.getTickedOption();
@@ -35,9 +33,7 @@ protected Score currentScore;
         }else {
             currentScore.setNumberOfPoints(currentScore.getNumberOfPoints());
         }
-
         currentScore.setNumberOfPoints(currentScore.getNumberOfAttempts()+1);
         return currentScore;
-
     }
 }

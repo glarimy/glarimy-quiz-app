@@ -31,6 +31,6 @@ public interface QuestionService {
      *Parameters:None
      *Return:returns true if user is having active connection else returns false
      */
-    public boolean isConntected();
+    public boolean isConnected();
 }
 
