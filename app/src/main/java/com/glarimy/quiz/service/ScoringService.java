@@ -19,6 +19,7 @@ public interface ScoringService {
      * Parameters:None
      *
      * Return:gives the Current score of user .
+     * 
      */
     public Score getCurrentScore();
 
