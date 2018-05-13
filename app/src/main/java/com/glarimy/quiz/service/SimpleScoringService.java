@@ -15,5 +15,6 @@ protected Score currentScore;
     @Override
     public Score getCurrentScore() {
         return null;
+
     }
 }
