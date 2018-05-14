@@ -9,13 +9,17 @@ protected Score currentScore;
     public boolean evaluate(Answer answer) {
        int  val= answer.getTickedOption();
         int val1=answer.getCorrectOption();
-
         if(val==val1)
         {
+
+            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints()+1);
+            currentScore.setNumberOfAttempts(currentScore.getNumberOfAttempts()+1);
             return true;
         }
         else
         {
+            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints());
+            currentScore.setNumberOfAttempts(currentScore.getNumberOfAttempts()+1);
             return false;
         }
 
@@ -24,16 +28,7 @@ protected Score currentScore;
     @Override
     public Score getCurrentScore()
     {
-        Answer answer=new Answer();
-        currentScore=new Score();
-        if (evaluate(answer))
-        {
-            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints()+1);
-
-        }else {
-            currentScore.setNumberOfPoints(currentScore.getNumberOfPoints());
-        }
-        currentScore.setNumberOfPoints(currentScore.getNumberOfAttempts()+1);
+        //current score
         return currentScore;
     }
 }

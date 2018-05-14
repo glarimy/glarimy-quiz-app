@@ -1,7 +1,6 @@
 package com.glarimy.quiz.service;
 
 import com.glarimy.quiz.model.Answer;
-import com.glarimy.quiz.model.Score;
 
 import org.junit.Test;
 
@@ -11,6 +10,11 @@ public class SimpleScoringServiceTest {
 
     @Test
     public void evaluate() {
+
+    }
+
+    @Test
+    public void getCurrentScore() {
 
     }
 }
