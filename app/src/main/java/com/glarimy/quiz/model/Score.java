@@ -7,8 +7,8 @@ public class Score implements Serializable
     protected int numberOfPoints;
     protected int numberOfAttempts;
 
-    public Score()
-    {
+    public Score(){
+
 
     }
 

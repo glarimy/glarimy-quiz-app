@@ -4,19 +4,25 @@ import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Score;
 
 public  class SimpleScoringService implements ScoringService {
-protected Score currentScore;
+    protected Score currentScore;
+
     @Override
     public boolean evaluate(Answer answer) {
-       int  val= answer.getTickedOption();
-        int val1=answer.getCorrectOption();
-        if(val==val1)
-        {
 
+        if (answer==null){
+            return false;
+        }else if (answer.getQuestionId() == 0){
+            return false;
+        } else if (answer.getCorrectOption()>=1 && answer.getCorrectOption()<=4){
+            return true;
+        }else if (answer.getTickedOption()>=1 && answer.getTickedOption()<=4){
+            return true;
+        }else if(answer.getTickedOption()==answer.getCorrectOption())
+        {
             currentScore.setNumberOfPoints(currentScore.getNumberOfPoints()+1);
             currentScore.setNumberOfAttempts(currentScore.getNumberOfAttempts()+1);
             return true;
-        }
-        else
+        } else
         {
             currentScore.setNumberOfPoints(currentScore.getNumberOfPoints());
             currentScore.setNumberOfAttempts(currentScore.getNumberOfAttempts()+1);
@@ -28,6 +34,9 @@ protected Score currentScore;
     @Override
     public Score getCurrentScore()
     {
+       // Score s=new Score();
+        //s.setNumberOfPoints(0);
+        //s.setNumberOfAttempts(0);
         //current score
         return currentScore;
     }
