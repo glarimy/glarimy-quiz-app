@@ -11,12 +11,9 @@ public class SimpleScoringServiceTest {
     @Test
     public void testInitialScore() {
         ScoringService service = new SimpleScoringService();
-        Score s=new Score();
-        s.setNumberOfPoints(0);
-        s.setNumberOfAttempts(0);
         Score score = service.getCurrentScore();
-        assertTrue("invalid initial attempts", s.getNumberOfAttempts() == 0);
-        assertTrue("invalid initial points", s.getNumberOfPoints() == 0);
+        assertTrue("invalid initial attempts", score.getNumberOfAttempts() == 0);
+        assertTrue("invalid initial points", score.getNumberOfPoints() == 0);
     }
 
 
