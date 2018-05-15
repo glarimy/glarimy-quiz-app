@@ -33,10 +33,6 @@ public  class SimpleScoringService implements ScoringService {
     @Override
     public Score getCurrentScore()
     {
-       // Score s=new Score();
-        //s.setNumberOfPoints(0);
-        //s.setNumberOfAttempts(0);
-        //current score
         return currentScore;
     }
 }
