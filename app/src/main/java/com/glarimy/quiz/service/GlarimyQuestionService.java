@@ -9,7 +9,6 @@ import android.util.Log;
 import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Question;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -140,11 +139,12 @@ public class GlarimyQuestionService implements QuestionService {
         }
 
         @Override
-        protected String doInBackground(URL... params) {
+        protected String doInBackground(URL... params)
+        {
             StringBuilder result = new StringBuilder();
-            try {
+            try
+            {
                 URL url = params[0];
-                urlConnection = (HttpURLConnection) url.openConnection(/*proxy*/);
                 urlConnection.setDoInput(true);
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setConnectTimeout(20 * 1000);

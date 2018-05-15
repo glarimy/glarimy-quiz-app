@@ -4,14 +4,11 @@ import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Score;
 
 public  class SimpleScoringService implements ScoringService {
-    protected Score currentScore =new Score();
-    public SimpleScoringService(){
-        currentScore.setNumberOfPoints(0);
-        currentScore.setNumberOfAttempts(0);
-    }
-    @Override
-    public boolean evaluate(Answer answer) {
+    protected Score currentScore;
 
+    @Override
+    public boolean evaluate(Answer answer)
+    {
         if (answer==null){
             return false;
         }else if (answer.getQuestionId() == 0){
@@ -31,7 +28,6 @@ public  class SimpleScoringService implements ScoringService {
             currentScore.setNumberOfAttempts(currentScore.getNumberOfAttempts()+1);
             return false;
         }
-
     }
 
     @Override
