@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Glarimy-Quiz-App</string>
     <string name="splash_text">Glarimy Welcomes You</string>
+    <string name="erroroop">OOP!</string>
+    <string name="welcome_message">welcome</string>
+
+    <string name="connectionproblem">Connection Problem \n Check your internet Connection </string>
 </resources>

@@ -9,7 +9,7 @@
         android:textSize="60sp"
         android:textStyle="bold"
         android:text="@string/welcome_message"
-        android:textColor="@color/color_pink"
+        android:textColor="@color/colorAccent"
         android:background="@color/BackgroundColor"/>
 
 </LinearLayout>
