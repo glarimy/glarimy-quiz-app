@@ -1,16 +1,20 @@
 package com.glarimy.quiz.service;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Question;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,30 +38,18 @@ public class GlarimyQuestionService implements QuestionService {
 
         if (isConnected()) {
             try {
-                HttpURLConnection urlConnection = null;
-                URL url = new URL(uri);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setDoOutput(true);
-                urlConnection.connect();
+                String stringUrl = "http://www.glarimy.com/q";
+                URL uri = new URL(stringUrl);
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                StringBuilder sb = new StringBuilder();
+                //creating object and calling the async task
+                CloudConnection cloudConnection = new CloudConnection();
+                cloudConnection.execute(uri);
 
-                String line;
-                try {
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line).append('\n');
-                    }
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception " + e.getMessage());
-                }
-                String jsonString = sb.toString();
-                reader.close();
-
-                JSONObject jsonObject = new JSONObject().getJSONObject(jsonString);
+                //getting the data from AsyncTask
+                String jsonString = cloudConnection.get();
 
                 //getting the data from JSONObject and setting to the properties of Question class*/
+                JSONObject jsonObject = new JSONObject().getJSONObject(jsonString);
 
                 question.setId(jsonObject.getInt("id"));
                 question.setTitle(jsonObject.getString("title"));
@@ -69,43 +61,28 @@ public class GlarimyQuestionService implements QuestionService {
             } catch (Exception e) {
                 Log.e(TAG, "Exception " + e.getMessage());
             }
+        } else {
+
         }
         return question;
     }
 
+
     @Override
     public Answer getAnswer(int questionId) {
-
         Answer answer = new Answer();
-
         if (isConnected()) {
             try {
-                HttpURLConnection urlConnection = null;
+                String stringUrl = " http://www.glarimy.com/q?id=" + questionId;
+                URL uri = new URL(stringUrl);
 
-                URL url = new URL("http://www.glarimy.com/q?id=" + questionId);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setDoOutput(true);
-                urlConnection.connect();
+                CloudConnection cloudConnection = new CloudConnection();
+                cloudConnection.execute(uri);
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                try {
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line).append('\n');
-                    }
-                } catch (IOException e) {
-                    Log.e(TAG, "Exception " + e.getMessage());
-                }
-                String jsonString = sb.toString();
-                reader.close();
-
+                String jsonString = cloudConnection.get();
                 JSONObject jsonObject = new JSONObject().getJSONObject(jsonString);
 
                 String correctOption = jsonObject.getString("key");
-
                 answer.setQuestionId(jsonObject.getInt("id"));
 
                 if (correctOption.equals("a"))
@@ -119,25 +96,81 @@ public class GlarimyQuestionService implements QuestionService {
             } catch (Exception e) {
                 Log.e(TAG, "Exception " + e.getMessage());
             }
+        } else {
+
         }
         return answer;
     }
 
-    /**method to check the device is connected to a network or not
+
+    /**
+     * method to check the device is connected to a network or not
+     *
      * @return true if connected to network else false
      */
-    public boolean isConnected()
-    {
+    public boolean isConnected() {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if ((connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null && connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected())
                 || (connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null && connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                .isConnected()))
-        {
+                .isConnected())) {
             return true;
-        }
-        else {
+        } else {
             return false;
+        }
+    }
+
+    /**
+     * AsyncTask for connecting to the required URL
+     * <p>
+     * this AsyncTask was called by two methods in this class
+     * get() and getAnswer()
+     */
+    class CloudConnection extends AsyncTask<URL, Void, String> {
+
+        private HttpURLConnection urlConnection;
+        private ProgressDialog mDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mDialog = new ProgressDialog(context);
+            mDialog.setMessage("Retrieving data...");
+            mDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(URL... params) {
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = params[0];
+                urlConnection = (HttpURLConnection) url.openConnection(/*proxy*/);
+                urlConnection.setDoInput(true);
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(20 * 1000);
+                urlConnection.setReadTimeout(20 * 1000);
+
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String jsonString) {
+            super.onPostExecute(jsonString);
+            mDialog.dismiss();
         }
     }
 }
