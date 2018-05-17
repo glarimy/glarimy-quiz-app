@@ -35,7 +35,8 @@ public class GlarimyQuestionService implements QuestionService {
     @Override
     public Question get() throws MalformedURLException, ExecutionException, InterruptedException, JSONException {
 
-        if (isConnected()) {
+        if (isConnected())
+        {
             String stringUrl = "http://www.glarimy.com/q";
             URL uri = new URL(stringUrl);
 
@@ -97,7 +98,8 @@ public class GlarimyQuestionService implements QuestionService {
 
     @Override
     public Answer getAnswer(final int questionId) throws MalformedURLException, ExecutionException, InterruptedException, JSONException {
-        if (isConnected()) {
+        if (isConnected())
+        {
             String stringUrl = "http://www.glarimy.com/q?id=" + questionId;
             URL uri = new URL(stringUrl);
 

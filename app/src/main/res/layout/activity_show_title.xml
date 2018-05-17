@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/titleView"
+            android:id="@+id/titleId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -24,7 +24,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/questionView"
+        android:id="@+id/questionId"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
@@ -39,6 +39,7 @@
         android:textSize="19sp" />
 
     <TextView
+        android:id="@+id/optionsId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -60,13 +61,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/optionOne"
+                android:id="@+id/optionIdOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#44cfdc"
+                android:onClick="onSubmit"
                 android:gravity="left"
                 android:padding="7dp"
                 android:textAllCaps="false"
@@ -75,13 +77,14 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/optionTwo"
+                android:id="@+id/optionIdTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#44cfdc"
+                android:onClick="onSubmit"
                 android:gravity="left"
                 android:padding="7dp"
                 android:textAllCaps="false"
@@ -90,13 +93,14 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/optionThree"
+                android:id="@+id/optionIdThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="#44cfdc"
+                android:onClick="onSubmit"
                 android:gravity="left"
                 android:padding="7dp"
                 android:textAllCaps="false"
@@ -105,7 +109,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/optionFour"
+                android:id="@+id/optionIdFour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -114,6 +118,7 @@
                 android:background="#44cfdc"
                 android:textAllCaps="false"
                 android:gravity="left"
+                android:onClick="onSubmit"
                 android:padding="7dp"
                 android:text="It depends on which device is being used to control the water filter."
                 android:textColor="#f000"
