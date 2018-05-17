@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorAccent"
-android:gravity="center">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/BackgroundColor"
+    android:gravity="center">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -15,16 +16,16 @@ android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/erroroop"
-        android:textSize="65sp"
-        android:textColor="@color/colortext"/>
+        android:text="@string/wrongmessage"
+        android:textSize="75sp"
+        android:textColor="@color/colorAccent"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/connectionproblem"
+        android:text="@string/wrong"
         android:textSize="25sp"
         android:gravity="center"
-        android:textColor="@color/colortext"/>
+        android:textColor="@color/passmessage"/>
 </LinearLayout>
 
 <LinearLayout
@@ -32,7 +33,6 @@ android:gravity="center">
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:gravity="bottom"
-    android:background="@color/BackgroundColor"
     android:orientation="vertical">
 
     <TextView
