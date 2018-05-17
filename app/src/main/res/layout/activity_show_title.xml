@@ -1,128 +1,170 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left"
+                android:text="How good you are in technology?"
+                android:textColor="@color/colorAccent"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/questionId"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="left"
+            android:lineSpacingExtra="3dp"
+            android:padding="5dp"
+            android:text="If you are able to control your water heater from anywhere in the world using internet, which technology enables such a feature?"
+            android:textColor="#f000"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/optionsId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="options"
+            android:textColor="@color/colorAccent"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="80dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/optionIdOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#44cfdc"
+                    android:onClick="onSubmit"
+                    android:gravity="left"
+                    android:padding="7dp"
+                    android:textAllCaps="false"
+                    android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
+In the Component Tree window, right-click the layout and click Convert layout to ConstraintLayout.
+Build a Responsive UI with ConstraintLayout | Android Developers
+https://developer.android.com/training/constraint-layout/
+Feedback"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/optionIdTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#44cfdc"
+                    android:onClick="onSubmit"
+                    android:gravity="left"
+                    android:padding="7dp"
+                    android:textAllCaps="false"
+                    android:text="What is/are true regarding interfaces in java?"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/optionIdThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#44cfdc"
+                    android:onClick="onSubmit"
+                    android:gravity="left"
+                    android:padding="7dp"
+                    android:textAllCaps="false"
+                    android:text="What is/are true regarding interfaces in java?"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/optionIdFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#44cfdc"
+                    android:textAllCaps="false"
+                    android:gravity="left"
+                    android:onClick="onSubmit"
+                    android:padding="7dp"
+                    android:text="It depends on which device is being used to control the water filter."
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/glarimy"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f000"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/titleId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="left"
-            android:text="How good you are in technology?"
-            android:textColor="@color/colorAccent"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/questionId"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:gravity="left"
-        android:lineSpacingExtra="3dp"
-        android:padding="5dp"
-        android:text="If you are able to control your water heater from anywhere in the world using internet, which technology enables such a feature?"
-        android:textColor="#f000"
-        android:textSize="19sp" />
-
-    <TextView
-        android:id="@+id/optionsId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="options"
-        android:textColor="@color/colorAccent"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="6dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/glarimy"
+            android:textColor="@color/colorAqua"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/optionIdOne"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#44cfdc"
-                android:onClick="onSubmit"
-                android:gravity="left"
-                android:padding="7dp"
-                android:textAllCaps="false"
-                android:text="It is impossible. There is no such technology."
-                android:textColor="#f000"
-                android:textSize="18sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/quiz"
+            android:textColor="@color/colorAqua"
+            android:textSize="60sp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/optionIdTwo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#44cfdc"
-                android:onClick="onSubmit"
-                android:gravity="left"
-                android:padding="7dp"
-                android:textAllCaps="false"
-                android:text="What is/are true regarding interfaces in java?"
-                android:textColor="#f000"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/optionIdThree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#44cfdc"
-                android:onClick="onSubmit"
-                android:gravity="left"
-                android:padding="7dp"
-                android:textAllCaps="false"
-                android:text="What is/are true regarding interfaces in java?"
-                android:textColor="#f000"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/optionIdFour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="#44cfdc"
-                android:textAllCaps="false"
-                android:gravity="left"
-                android:onClick="onSubmit"
-                android:padding="7dp"
-                android:text="It depends on which device is being used to control the water filter."
-                android:textColor="#f000"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

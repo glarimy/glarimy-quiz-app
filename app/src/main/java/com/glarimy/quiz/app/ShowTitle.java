@@ -1,15 +1,19 @@
 package com.glarimy.quiz.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Question;
 import com.glarimy.quiz.service.GlarimyQuestionService;
+import com.glarimy.quiz.service.SimpleScoringService;
 
 import org.json.JSONException;
 
@@ -26,6 +30,8 @@ public class ShowTitle extends Activity {
 
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
     Question question = new Question();
+    Answer answer=new Answer();
+    SimpleScoringService simpleScoringService=new SimpleScoringService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +90,49 @@ public class ShowTitle extends Activity {
                     }
                 }, time = time + 1000);
             }
-
-
+        }
+        else
+        {
+            Toast.makeText(this,"question becomes null",Toast.LENGTH_LONG).show();
         }
     }
 
 
-    public void onSubmit(View v)
-    {
+    public void onSubmit(View v) throws InterruptedException, MalformedURLException, JSONException, ExecutionException {
         int choosedButton=v.getId();
-
+        int choosedOption=1;
         for(int i=0;i<4;i++)
         {
             if(choosedButton==buttonIds[i])
-                buttonViews[i].setBackgroundColor(Color.RED);
+            {
+                choosedOption=i+1;
+                buttonViews[i].setBackgroundColor(Color.parseColor("#RRGGBB"));
+            }
             else
                 buttonViews[i].setEnabled(false);
         }
 
+        answer=glarimyQuestionService.getAnswer(question.getId());
+        //answer.setTickedOption(choosedOption);
+        //answer.setCorrectOption(answer.getTickedOption());
+        simpleScoringService.evaluate(answer);
 
+
+        if(choosedOption==answer.getCorrectOption())
+        {
+           Intent passIntent=new Intent(this,ShowPassMessage.class);
+           startActivity(passIntent);
+        }
+        else
+        {
+            Intent errorIntent=new Intent(this,ShowErrorMessage.class);
+            startActivity(errorIntent);
+        }
 
     }
+
+
+
+
 
 }
