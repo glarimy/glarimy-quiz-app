@@ -3,6 +3,11 @@ package com.glarimy.quiz.service;
         import com.glarimy.quiz.model.Answer;
         import com.glarimy.quiz.model.Question;
 
+        import org.json.JSONException;
+
+        import java.net.MalformedURLException;
+        import java.util.concurrent.ExecutionException;
+
 /**
  *This service helps to get the data from cloud.
  *Author:venu
@@ -15,7 +20,7 @@ public interface QuestionService {
      * Parameters:None
      * Return:Question when called this method.
      */
-    public Question get();
+    public Question get() throws MalformedURLException, ExecutionException, InterruptedException, JSONException;
 
     /**
      *
@@ -24,7 +29,7 @@ public interface QuestionService {
      * questionid:This will be used to retrieve the answer of a required question.
      * Return:the Answer
      */
-    public Answer getAnswer(int questionid);
+    public Answer getAnswer(int questionid) throws MalformedURLException, ExecutionException, InterruptedException, JSONException;
 
     /**
      *It returns the network status of the user.

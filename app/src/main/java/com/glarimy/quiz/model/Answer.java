@@ -1,6 +1,7 @@
 package com.glarimy.quiz.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Answer implements Serializable {
 
