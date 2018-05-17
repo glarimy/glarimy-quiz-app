@@ -28,6 +28,7 @@ public class ShowTitle extends Activity {
     int buttonIds[] = new int[]{R.id.optionIdOne, R.id.optionIdTwo, R.id.optionIdThree, R.id.optionIdFour};
     Button buttonViews[] = new Button[buttonIds.length];
     String optionText[];
+    int choosedOption;
 
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
     Question question = new Question();
@@ -103,7 +104,6 @@ public class ShowTitle extends Activity {
 
     public void onSubmit(View v) throws InterruptedException, MalformedURLException, JSONException, ExecutionException {
         int choosedButton=v.getId();
-        int choosedOption=1;
         for(int i=0;i<4;i++)
         {
             if(choosedButton==buttonIds[i])
@@ -116,7 +116,7 @@ public class ShowTitle extends Activity {
         }
 
         answer=glarimyQuestionService.getAnswer(question.getId());
-        //answer.setTickedOption(choosedOption);
+        answer.setTickedOption(choosedOption);
         //answer.setCorrectOption(answer.getTickedOption());
         simpleScoringService.evaluate(answer);
 
@@ -128,7 +128,7 @@ public class ShowTitle extends Activity {
         }
         else
         {
-            Intent errorIntent=new Intent(this,ShowErrorMessage.class);
+            Intent errorIntent=new Intent(this,ShowWrongMessage.class);
             startActivity(errorIntent);
         }
 

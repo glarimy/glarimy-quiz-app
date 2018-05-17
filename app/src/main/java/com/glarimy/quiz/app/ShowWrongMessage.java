@@ -17,7 +17,7 @@ public class ShowWrongMessage extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(ShowWrongMessage.this,MainActivity.class));
+                startActivity(new Intent(ShowWrongMessage.this,ShowCurrentScore.class));
                 finish();
             }
         },4000);
