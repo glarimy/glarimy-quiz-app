@@ -73,6 +73,7 @@ public class ShowTitle extends Activity {
                 buttonViews[i].setText(optionText[i]);
             }
 
+            
             Handler answerHandler = new Handler();
             int time = 500;
             int i1;

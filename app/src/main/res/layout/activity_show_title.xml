@@ -76,10 +76,7 @@
                     android:padding="7dp"
                     android:textAllCaps="false"
                     android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
-In the Component Tree window, right-click the layout and click Convert layout to ConstraintLayout.
-Build a Responsive UI with ConstraintLayout | Android Developers
-https://developer.android.com/training/constraint-layout/
-Feedback"
+In the Component Tree window"
                     android:textColor="#f000"
                     android:textSize="18sp" />
 
