@@ -27,13 +27,14 @@ public class ShowTitle extends Activity {
 
     int buttonIds[] = new int[]{R.id.optionIdOne, R.id.optionIdTwo, R.id.optionIdThree, R.id.optionIdFour};
     Button buttonViews[] = new Button[buttonIds.length];
-    String optionText[];
+    String optionText[] = new String[4];
     int choosedOption;
 
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
     Question question = new Question();
-    Answer answer=new Answer();
-    SimpleScoringService simpleScoringService=new SimpleScoringService();
+    Answer answer = new Answer();
+    SimpleScoringService simpleScoringService = new SimpleScoringService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ShowTitle extends Activity {
         }
 
         if (question != null) {
+
             titleView.setText(question.getTitle());
             questionView.setText(question.getDescription());
 
@@ -76,7 +78,7 @@ public class ShowTitle extends Activity {
                 buttonViews[i].setText(optionText[i]);
             }
 
-            
+
             Handler answerHandler = new Handler();
             int time = 500;
             int i1;
@@ -94,48 +96,37 @@ public class ShowTitle extends Activity {
                     }
                 }, time = time + 1000);
             }
-        }
-        else
-        {
-            Toast.makeText(this,"question becomes null",Toast.LENGTH_LONG).show();
+        } else {
+            Intent showErroMessage = new Intent(this, ShowErrorMessage.class);
+            startActivity(showErroMessage);
+            //Toast.makeText(this,"question becomes null",Toast.LENGTH_LONG).show();
         }
     }
 
 
     public void onSubmit(View v) throws InterruptedException, MalformedURLException, JSONException, ExecutionException {
-        int choosedButton=v.getId();
-        for(int i=0;i<4;i++)
-        {
-            if(choosedButton==buttonIds[i])
-            {
-                choosedOption=i+1;
-                buttonViews[i].setBackgroundColor(Color.parseColor("#RRGGBB"));
-            }
-            else
+        int choosedButton = v.getId();
+        for (int i = 0; i < 4; i++) {
+            if (choosedButton == buttonIds[i]) {
+                choosedOption = i + 1;
+                buttonViews[i].setBackgroundColor(getResources().getColor(R.color.colorStrawberry));
+                //buttonViews[i].setBackgroundColor(Color.parseColor("#RRGGBB"));
+            } else
                 buttonViews[i].setEnabled(false);
         }
 
-        answer=glarimyQuestionService.getAnswer(question.getId());
+        answer = glarimyQuestionService.getAnswer(question.getId());
         answer.setTickedOption(choosedOption);
         //answer.setCorrectOption(answer.getTickedOption());
         simpleScoringService.evaluate(answer);
 
 
-        if(choosedOption==answer.getCorrectOption())
-        {
-           Intent passIntent=new Intent(this,ShowPassMessage.class);
-           startActivity(passIntent);
-        }
-        else
-        {
-            Intent errorIntent=new Intent(this,ShowWrongMessage.class);
+        if (choosedOption == answer.getCorrectOption()) {
+            Intent passIntent = new Intent(this, ShowPassMessage.class);
+            startActivity(passIntent);
+        } else {
+            Intent errorIntent = new Intent(this, ShowWrongMessage.class);
             startActivity(errorIntent);
         }
-
     }
-
-
-
-
-
 }

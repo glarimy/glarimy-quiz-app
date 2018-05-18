@@ -1,12 +1,13 @@
 package com.glarimy.quiz.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-public class ShowWrongMessage extends AppCompatActivity {
+public class ShowWrongMessage extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,6 @@ public class ShowWrongMessage extends AppCompatActivity {
                 startActivity(new Intent(ShowWrongMessage.this,ShowCurrentScore.class));
                 finish();
             }
-        },4000);
+        },1000);
     }
 }

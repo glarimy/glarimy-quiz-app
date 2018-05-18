@@ -22,6 +22,6 @@ public class ShowPassMessage extends Activity {
                 startActivity(new Intent(ShowPassMessage.this,ShowCurrentScore.class));
                 finish();
             }
-        },4000);
+        },1000);
     }
 }

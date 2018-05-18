@@ -2,11 +2,14 @@ package com.glarimy.quiz.service;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.glarimy.quiz.app.MainActivity;
+import com.glarimy.quiz.app.ShowTitle;
 import com.glarimy.quiz.model.Answer;
 import com.glarimy.quiz.model.Question;
 
@@ -35,120 +38,65 @@ public class GlarimyQuestionService implements QuestionService {
     @Override
     public Question get() throws MalformedURLException, ExecutionException, InterruptedException, JSONException {
 
-        if (isConnected())
-        {
+        if (isConnected()) {
             String stringUrl = "http://www.glarimy.com/q";
             URL uri = new URL(stringUrl);
 
             //creating object and calling the async task
-            final CloudConnection cloudConnection = new CloudConnection((MainActivity) context);
+            final CloudConnection cloudConnection = new CloudConnection((ShowTitle) context);
             cloudConnection.execute(uri);
 
-            //getting the data from AsyncTask
-            String jsonString = cloudConnection.get();
+            JSONObject JsonQuestionObject = new JSONObject(cloudConnection.get());
 
-            //getting the data from JSONObject and setting to the properties of Question class*/
-            final JSONObject[] JsonQuestionObject = {new JSONObject().getJSONObject(jsonString)};
-
-
-            Handler questionHandler = new Handler();
-            questionHandler.postDelayed(new Runnable() {
-                public void run() {
-                    try {
-                        JsonQuestionObject[0] = new JSONObject(cloudConnection.get());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        question.setId(Integer.parseInt(JsonQuestionObject[0].getString("id")));
-                        question.setTitle(JsonQuestionObject[0].getString("title"));
-                        question.setDescription(JsonQuestionObject[0].getString("question"));
-                        question.setOptionOne(JsonQuestionObject[0].getString("a"));
-                        question.setOptionTwo(JsonQuestionObject[0].getString("b"));
-                        question.setOptionThree(JsonQuestionObject[0].getString("c"));
-                        question.setOptionFour(JsonQuestionObject[0].getString("d"));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    if (question.getId() != 0 &&
-                            !question.getTitle().equals("") &&
-                            !question.getDescription().equals("") &&
-                            !question.getOptionOne().equals("") &&
-                            !question.getOptionTwo().equals("") &&
-                            !question.getOptionThree().equals("") &&
-                            !question.getOptionFour().equals("")) {
-
-                    } else
-                        answer = null;
-                }
-            }, 100);
+            question.setId(JsonQuestionObject.getInt("id"));
+            question.setTitle(JsonQuestionObject.getString("title"));
+            question.setDescription(JsonQuestionObject.getString("question"));
+            question.setOptionOne(JsonQuestionObject.getString("a"));
+            question.setOptionTwo(JsonQuestionObject.getString("b"));
+            question.setOptionThree(JsonQuestionObject.getString("c"));
+            question.setOptionFour(JsonQuestionObject.getString("d"));
 
         } else {
             //code to be executed when no internet connectivity
             question = null;
         }
+
         return question;
     }
 
     @Override
     public Answer getAnswer(final int questionId) throws MalformedURLException, ExecutionException, InterruptedException, JSONException {
-        if (isConnected())
-        {
+        if (isConnected()) {
             String stringUrl = "http://www.glarimy.com/q?id=" + questionId;
             URL uri = new URL(stringUrl);
 
-            final CloudConnection cloudConnection = new CloudConnection((MainActivity) context);
+            final CloudConnection cloudConnection = new CloudConnection((ShowTitle) context);
             cloudConnection.execute(uri);
 
-            String jsonString = cloudConnection.get();
-            final JSONObject[] JsonQuestionObject = {new JSONObject().getJSONObject(jsonString)};
+            JSONObject JsonQuestionObject = new JSONObject(cloudConnection.get());
+
+            switch (JsonQuestionObject.getString("key")) {
+                case "a":
+                    answer.setCorrectOption(1);
+                    break;
+                case "b":
+                    answer.setCorrectOption(2);
+                    break;
+                case "c":
+                    answer.setCorrectOption(3);
+                    break;
+                case "d":
+                    answer.setCorrectOption(4);
+                    break;
+            }
+
+            answer.setQuestionId(JsonQuestionObject.getInt("id"));
 
 
-            Handler answerHandler = new Handler();
-            answerHandler.postDelayed(new Runnable() {
-                public void run() {
-                    try {
-                        JsonQuestionObject[0] = new JSONObject(cloudConnection.get());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        switch (JsonQuestionObject[0].getString("key")) {
-                            case "a":
-                                answer.setCorrectOption(1);
-                                break;
-                            case "b":
-                                answer.setCorrectOption(2);
-                                break;
-                            case "c":
-                                answer.setCorrectOption(3);
-                                break;
-                            case "d":
-                                answer.setCorrectOption(4);
-                                break;
-                        }
-                        answer.setQuestionId(JsonQuestionObject[0].getInt("id"));
-
-                        if (JsonQuestionObject[0].getInt("id") < 0)
-                            answer = null;
-                        if (JsonQuestionObject[0].getInt("id") != questionId)
-                            answer = null;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }, 100);
+            if (JsonQuestionObject.getInt("id") < 0)
+                answer = null;
+            if (JsonQuestionObject.getInt("id") != questionId)
+                answer = null;
         } else {
             answer = null;
         }
@@ -183,8 +131,7 @@ public class GlarimyQuestionService implements QuestionService {
         private HttpURLConnection urlConnection;
         private ProgressDialog progress;
 
-        public CloudConnection(MainActivity context)
-        {
+        public CloudConnection(ShowTitle context) {
             progress = new ProgressDialog(context);
         }
 
@@ -201,6 +148,7 @@ public class GlarimyQuestionService implements QuestionService {
             StringBuilder result = new StringBuilder();
             try {
                 URL url = params[0];
+                urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoInput(true);
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setConnectTimeout(10 * 1000);

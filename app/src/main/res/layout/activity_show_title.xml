@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -9,7 +10,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -38,7 +39,7 @@
             android:lineSpacingExtra="3dp"
             android:padding="5dp"
             android:text="If you are able to control your water heater from anywhere in the world using internet, which technology enables such a feature?"
-            android:textColor="#f000"
+            android:textColor="#000000"
             android:textSize="19sp" />
 
         <TextView
@@ -71,12 +72,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="#44cfdc"
-                    android:onClick="onSubmit"
                     android:gravity="left"
+                    android:onClick="onSubmit"
                     android:padding="7dp"
-                    android:textAllCaps="false"
                     android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
 In the Component Tree window"
+                    android:textAllCaps="false"
                     android:textColor="#f000"
                     android:textSize="18sp" />
 
@@ -88,11 +89,11 @@ In the Component Tree window"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="#44cfdc"
-                    android:onClick="onSubmit"
                     android:gravity="left"
+                    android:onClick="onSubmit"
                     android:padding="7dp"
-                    android:textAllCaps="false"
                     android:text="What is/are true regarding interfaces in java?"
+                    android:textAllCaps="false"
                     android:textColor="#f000"
                     android:textSize="18sp" />
 
@@ -104,11 +105,11 @@ In the Component Tree window"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="#44cfdc"
-                    android:onClick="onSubmit"
                     android:gravity="left"
+                    android:onClick="onSubmit"
                     android:padding="7dp"
-                    android:textAllCaps="false"
                     android:text="What is/are true regarding interfaces in java?"
+                    android:textAllCaps="false"
                     android:textColor="#f000"
                     android:textSize="18sp" />
 
@@ -120,17 +121,15 @@ In the Component Tree window"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="#44cfdc"
-                    android:textAllCaps="false"
                     android:gravity="left"
                     android:onClick="onSubmit"
                     android:padding="7dp"
                     android:text="It depends on which device is being used to control the water filter."
+                    android:textAllCaps="false"
                     android:textColor="#f000"
                     android:textSize="18sp" />
             </LinearLayout>
         </ScrollView>
-
-
 
 
     </LinearLayout>
