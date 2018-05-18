@@ -9,7 +9,7 @@
     <string name="glarimy">Glarimy</string>
     <string name="get_score">Score</string>
     <string name="scorepage">0</string>
-
+    <string name="copyright">2018, Glarimy Technology Services</string>
 
     <string name="connectionproblem">Connection Problem \n Check your internet Connection </string>
     <string name="welcome_message">welcome</string>
