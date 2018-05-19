@@ -28,23 +28,31 @@ public class ShowCurrentScore extends Activity {
         setContentView(R.layout.activity_show_current_score);
 
         Toast.makeText(this, "" + score.getNumberOfPoints(), Toast.LENGTH_LONG).show();
-
+        score = simpleScoringService.getCurrentScore();
 
         scoreView = findViewById(R.id.currentScoreId);
         scoreView.setText("" + score.getNumberOfPoints());
-
         if (glarimyQuestionService.isConnected()) {
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(ShowCurrentScore.this, ShowTitle.class));
+                    Intent showTitle = new Intent(ShowCurrentScore.this, ShowTitle.class);
+                    startActivity(showTitle);
                     finish();
                 }
             }, 2000);
         } else {
-            startActivity(new Intent(ShowCurrentScore.this, ShowErrorMessage.class));
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(ShowCurrentScore.this, ShowErrorMessage.class));
+                    finish();
+                }
+            }, 2000);
         }
     }
 }

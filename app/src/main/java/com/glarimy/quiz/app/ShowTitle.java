@@ -3,6 +3,7 @@ package com.glarimy.quiz.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,6 @@ import java.util.concurrent.ExecutionException;
 
 public class ShowTitle extends Activity {
     TextView titleView, questionView, optionsView;
-    //Button optionOne, optionTwo, optionThree, optionFour;
 
     int buttonIds[] = new int[]{R.id.optionIdOne, R.id.optionIdTwo, R.id.optionIdThree, R.id.optionIdFour};
     Button buttonViews[] = new Button[buttonIds.length];
@@ -41,15 +41,11 @@ public class ShowTitle extends Activity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_title);
-
         titleView = findViewById(R.id.titleId);
-
         questionView = findViewById(R.id.questionId);
         questionView.setVisibility(View.INVISIBLE);
-
         optionsView = findViewById(R.id.optionsId);
         optionsView.setVisibility(View.INVISIBLE);
-
         try {
             question = glarimyQuestionService.get();
         } catch (MalformedURLException e) {
@@ -61,72 +57,84 @@ public class ShowTitle extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         if (question != null) {
-
-            titleView.setText(question.getTitle());
-            questionView.setText(question.getDescription());
-
-            optionText[0] = question.getOptionOne();
-            optionText[1] = question.getOptionTwo();
-            optionText[2] = question.getOptionThree();
-            optionText[3] = question.getOptionFour();
-
-            for (int i = 0; i < 4; i++) {
-                buttonViews[i] = findViewById(buttonIds[i]);
-                buttonViews[i].setVisibility(View.INVISIBLE);
-                buttonViews[i].setText(optionText[i]);
-            }
-
-
-            Handler answerHandler = new Handler();
-            int time = 500;
-            int i1;
-            for (i1 = 0; i1 <= 4; i1++) {
-                final int finalI = i1;
-                answerHandler.postDelayed(new Runnable() {
-                    public void run() {
-                        if (finalI == 0) {
-                            optionsView.setVisibility(View.VISIBLE);
-                            buttonViews[finalI].setVisibility(View.VISIBLE);
-                        } else if (finalI == 4)
-                            questionView.setVisibility(View.VISIBLE);
-                        else
-                            buttonViews[finalI].setVisibility(View.VISIBLE);
-                    }
-                }, time = time + 1000);
+            if (question.getDescription() != null) {
+                titleView.setText(question.getTitle());
+                questionView.setText(question.getDescription());
+                optionText[0] = question.getOptionOne();
+                optionText[1] = question.getOptionTwo();
+                optionText[2] = question.getOptionThree();
+                optionText[3] = question.getOptionFour();
+                for (int i = 0; i < 4; i++) {
+                    buttonViews[i] = findViewById(buttonIds[i]);
+                    buttonViews[i].setVisibility(View.INVISIBLE);
+                    buttonViews[i].setText(optionText[i]);
+                }
+                Handler answerHandler = new Handler();
+                int time = 500;
+                int i1;
+                for (i1 = 0; i1 <= 4; i1++) {
+                    final int finalI = i1;
+                    answerHandler.postDelayed(new Runnable() {
+                        public void run() {
+                            if (finalI == 0) {
+                                optionsView.setVisibility(View.VISIBLE);
+                                buttonViews[finalI].setVisibility(View.VISIBLE);
+                            } else if (finalI == 4)
+                                questionView.setVisibility(View.VISIBLE);
+                            else
+                                buttonViews[finalI].setVisibility(View.VISIBLE);
+                        }
+                    }, time = time + 1000);
+                }
+            } else {
+                finish();
+                startActivity(getIntent());
             }
         } else {
             Intent showErroMessage = new Intent(this, ShowErrorMessage.class);
             startActivity(showErroMessage);
-            //Toast.makeText(this,"question becomes null",Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
 
     public void onSubmit(View v) throws InterruptedException, MalformedURLException, JSONException, ExecutionException {
         int choosedButton = v.getId();
-        for (int i = 0; i < 4; i++) {
-            if (choosedButton == buttonIds[i]) {
-                choosedOption = i + 1;
-                buttonViews[i].setBackgroundColor(getResources().getColor(R.color.colorStrawberry));
-                //buttonViews[i].setBackgroundColor(Color.parseColor("#RRGGBB"));
-            } else
-                buttonViews[i].setEnabled(false);
-        }
+        if (glarimyQuestionService.isConnected()) {
+            for (int i = 0; i < 4; i++) {
+                if (glarimyQuestionService.isConnected() && choosedButton == buttonIds[i]) {
+                    choosedOption = i + 1;
+                    buttonViews[i].setBackgroundColor(getResources().getColor(R.color.colorStrawberry));
+                    buttonViews[i].setTextColor(getResources().getColor(R.color.colortext));
+                    buttonViews[i].setTypeface(buttonViews[i].getTypeface(), Typeface.BOLD);
+                } else {
+                    Intent networkerror = new Intent(this, ShowErrorMessage.class);
+                    buttonViews[i].setEnabled(false);
+                    startActivity(networkerror);
+                    finish();
+                }
 
-        answer = glarimyQuestionService.getAnswer(question.getId());
-        answer.setTickedOption(choosedOption);
-        //answer.setCorrectOption(answer.getTickedOption());
-        simpleScoringService.evaluate(answer);
+            }
 
+            answer = glarimyQuestionService.getAnswer(question.getId());
+            answer.setTickedOption(choosedOption);
+            //answer.setCorrectOption(answer.getTickedOption());
+            simpleScoringService.evaluate(answer);
 
-        if (choosedOption == answer.getCorrectOption()) {
-            Intent passIntent = new Intent(this, ShowPassMessage.class);
-            startActivity(passIntent);
+            if (choosedOption == answer.getCorrectOption()) {
+                Intent passIntent = new Intent(this, ShowPassMessage.class);
+                startActivity(passIntent);
+                finish();
+            } else {
+                Intent errorIntent = new Intent(this, ShowWrongMessage.class);
+                startActivity(errorIntent);
+                finish();
+            }
         } else {
-            Intent errorIntent = new Intent(this, ShowWrongMessage.class);
-            startActivity(errorIntent);
+            Intent networkerror = new Intent(this, ShowErrorMessage.class);
+            startActivity(networkerror);
+            finish();
         }
     }
 }

@@ -47,14 +47,18 @@ public class GlarimyQuestionService implements QuestionService {
             cloudConnection.execute(uri);
 
             JSONObject JsonQuestionObject = new JSONObject(cloudConnection.get());
+            if (JsonQuestionObject.getInt("id") != 0 ){
+                question.setId(JsonQuestionObject.getInt("id"));
+                question.setTitle(JsonQuestionObject.getString("title"));
+                question.setDescription(JsonQuestionObject.getString("question"));
+                question.setOptionOne(JsonQuestionObject.getString("a"));
+                question.setOptionTwo(JsonQuestionObject.getString("b"));
+                question.setOptionThree(JsonQuestionObject.getString("c"));
+                question.setOptionFour(JsonQuestionObject.getString("d"));
+            }else{
+                question=null;
+            }
 
-            question.setId(JsonQuestionObject.getInt("id"));
-            question.setTitle(JsonQuestionObject.getString("title"));
-            question.setDescription(JsonQuestionObject.getString("question"));
-            question.setOptionOne(JsonQuestionObject.getString("a"));
-            question.setOptionTwo(JsonQuestionObject.getString("b"));
-            question.setOptionThree(JsonQuestionObject.getString("c"));
-            question.setOptionFour(JsonQuestionObject.getString("d"));
 
         } else {
             //code to be executed when no internet connectivity

@@ -15,13 +15,13 @@ public class ShowPassMessage extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_pass_message);
 
-        Handler handler=new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(ShowPassMessage.this,ShowCurrentScore.class));
+                startActivity(new Intent(ShowPassMessage.this, ShowCurrentScore.class));
                 finish();
             }
-        },1000);
+        }, 1000);
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Glarimy-Quiz-App</string>
     <string name="splash_text">Glarimy Welcomes You</string>
-    <string name="erroroop">OOP!</string>
+    <string name="erroroop">OOPS!</string>
     <string name="passmessage">SUPER</string>
     <string name="passmessage1">You are rocking!</string>
     <string name="score">Current Score</string>
@@ -10,7 +10,6 @@
     <string name="get_score">Score</string>
     <string name="scorepage">0</string>
     <string name="copyright">2018, Glarimy Technology Services</string>
-
     <string name="connectionproblem">Connection Problem \n Check your internet Connection </string>
     <string name="welcome_message">welcome</string>
     <string name="wrongmessage">SORRY</string>

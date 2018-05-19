@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 public class Score implements Serializable
 {
-    protected int numberOfPoints;
-    protected int numberOfAttempts;
+    protected static int numberOfPoints;
+    protected static int numberOfAttempts;
 
     public Score(){
-
 
     }
 

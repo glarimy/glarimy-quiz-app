@@ -17,12 +17,15 @@ public class ShowErrorMessage extends Activity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_error_message);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(ShowErrorMessage.this, ShowTitle.class));
+                finish();
+            }
+        }, 1000);
 
-        Intent showTitle=new Intent(ShowErrorMessage.this,ShowTitle.class);
-        startActivity(showTitle);
 
-
-
-        finish();
     }
 }

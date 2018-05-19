@@ -1,10 +1,11 @@
 package com.glarimy.quiz.app;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-public class ShowDetails extends AppCompatActivity {
+public class ShowDetails extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
