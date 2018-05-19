@@ -24,7 +24,7 @@ public class ShowErrorMessage extends Activity {
                 startActivity(new Intent(ShowErrorMessage.this, ShowTitle.class));
                 finish();
             }
-        }, 1000);
+        }, 2000);
 
 
     }

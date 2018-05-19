@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,10 +26,14 @@ import java.util.concurrent.ExecutionException;
 public class ShowTitle extends Activity {
     TextView titleView, questionView, optionsView;
 
-    int buttonIds[] = new int[]{R.id.optionIdOne, R.id.optionIdTwo, R.id.optionIdThree, R.id.optionIdFour};
-    Button buttonViews[] = new Button[buttonIds.length];
+    int textIds[] = new int[]{R.id.optionIdOne, R.id.optionIdTwo, R.id.optionIdThree, R.id.optionIdFour};
+    int cardIds[]=new int[]{R.id.cardOne,R.id.cardTwo,R.id.cardThree,R.id.cardFour};
+    TextView buttonViews[] = new TextView[textIds.length];
+    CardView cardViews[]=new CardView[cardIds.length];
+
     String optionText[] = new String[4];
     int choosedOption;
+
 
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
     Question question = new Question();
@@ -37,7 +42,8 @@ public class ShowTitle extends Activity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_title);
@@ -46,6 +52,7 @@ public class ShowTitle extends Activity {
         questionView.setVisibility(View.INVISIBLE);
         optionsView = findViewById(R.id.optionsId);
         optionsView.setVisibility(View.INVISIBLE);
+
         try {
             question = glarimyQuestionService.get();
         } catch (MalformedURLException e) {
@@ -58,36 +65,53 @@ public class ShowTitle extends Activity {
             e.printStackTrace();
         }
         if (question != null) {
-            if (question.getDescription() != null) {
+            if (question.getDescription() != null)
+            {
                 titleView.setText(question.getTitle());
                 questionView.setText(question.getDescription());
+
                 optionText[0] = question.getOptionOne();
                 optionText[1] = question.getOptionTwo();
                 optionText[2] = question.getOptionThree();
                 optionText[3] = question.getOptionFour();
+
                 for (int i = 0; i < 4; i++) {
-                    buttonViews[i] = findViewById(buttonIds[i]);
-                    buttonViews[i].setVisibility(View.INVISIBLE);
+                    buttonViews[i] = findViewById(textIds[i]);
                     buttonViews[i].setText(optionText[i]);
+                    buttonViews[i].setVisibility(View.INVISIBLE);
+
+                    cardViews[i]=findViewById(cardIds[i]);
+                    cardViews[i].setVisibility(View.INVISIBLE);
                 }
                 Handler answerHandler = new Handler();
                 int time = 500;
                 int i1;
-                for (i1 = 0; i1 <= 4; i1++) {
+                for (i1 = 0; i1 <= 4; i1++)
+                {
                     final int finalI = i1;
-                    answerHandler.postDelayed(new Runnable() {
+                    answerHandler.postDelayed(new Runnable()
+                    {
                         public void run() {
-                            if (finalI == 0) {
+                            if (finalI == 0)
+                            {
                                 optionsView.setVisibility(View.VISIBLE);
                                 buttonViews[finalI].setVisibility(View.VISIBLE);
-                            } else if (finalI == 4)
+                                cardViews[finalI].setVisibility(View.VISIBLE);
+                            }
+                            else if (finalI == 4)
+                            {
+                                optionsView.setVisibility(View.INVISIBLE);
                                 questionView.setVisibility(View.VISIBLE);
-                            else
+                            }
+                            else {
                                 buttonViews[finalI].setVisibility(View.VISIBLE);
+                                cardViews[finalI].setVisibility(View.VISIBLE);
+                            }
                         }
                     }, time = time + 1000);
                 }
-            } else {
+            }
+            else {
                 finish();
                 startActivity(getIntent());
             }
@@ -101,14 +125,20 @@ public class ShowTitle extends Activity {
 
     public void onSubmit(View v) throws InterruptedException, MalformedURLException, JSONException, ExecutionException {
         int choosedButton = v.getId();
-        if (glarimyQuestionService.isConnected()) {
-            for (int i = 0; i < 4; i++) {
-                if (glarimyQuestionService.isConnected() && choosedButton == buttonIds[i]) {
+
+        if (glarimyQuestionService.isConnected())
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (glarimyQuestionService.isConnected() && choosedButton == textIds[i])
+                {
                     choosedOption = i + 1;
                     buttonViews[i].setBackgroundColor(getResources().getColor(R.color.colorStrawberry));
                     buttonViews[i].setTextColor(getResources().getColor(R.color.colortext));
                     buttonViews[i].setTypeface(buttonViews[i].getTypeface(), Typeface.BOLD);
-                } else {
+                }
+                else
+                    {
                     Intent networkerror = new Intent(this, ShowErrorMessage.class);
                     buttonViews[i].setEnabled(false);
                     startActivity(networkerror);
@@ -119,7 +149,6 @@ public class ShowTitle extends Activity {
 
             answer = glarimyQuestionService.getAnswer(question.getId());
             answer.setTickedOption(choosedOption);
-            //answer.setCorrectOption(answer.getTickedOption());
             simpleScoringService.evaluate(answer);
 
             if (choosedOption == answer.getCorrectOption()) {

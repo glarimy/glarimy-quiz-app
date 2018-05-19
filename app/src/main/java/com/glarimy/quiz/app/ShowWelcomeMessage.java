@@ -19,6 +19,6 @@ public class ShowWelcomeMessage extends Activity {
                 startActivity(new Intent(ShowWelcomeMessage.this, ShowCurrentScore.class));
                 finish();
             }
-        }, 3000);
+        }, 1500);
     }
 }

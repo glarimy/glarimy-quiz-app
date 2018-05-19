@@ -27,7 +27,6 @@ public class ShowCurrentScore extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_show_current_score);
 
-        Toast.makeText(this, "" + score.getNumberOfPoints(), Toast.LENGTH_LONG).show();
         score = simpleScoringService.getCurrentScore();
 
         scoreView = findViewById(R.id.currentScoreId);

@@ -21,6 +21,6 @@ public class ShowWrongMessage extends Activity {
                 startActivity(new Intent(ShowWrongMessage.this, ShowCurrentScore.class));
                 finish();
             }
-        }, 1000);
+        }, 2000);
     }
 }
