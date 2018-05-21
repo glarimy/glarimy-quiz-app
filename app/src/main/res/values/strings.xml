@@ -2,6 +2,7 @@
     <string name="app_name">Glarimy-Quiz-App</string>
     <string name="splash_text">Glarimy Welcomes You</string>
     <string name="erroroop">OOPS!</string>
+    <string name="correct">Correct Answer</string>
     <string name="passmessage">SUPER</string>
     <string name="passmessage1">You are rocking!</string>
     <string name="score">Current Score</string>
@@ -14,5 +15,4 @@
     <string name="welcome_message">welcome</string>
     <string name="wrongmessage">SORRY</string>
     <string name="wrong">Wrong Answer</string>
-    
 </resources>
