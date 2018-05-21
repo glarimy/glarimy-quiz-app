@@ -16,11 +16,8 @@ import com.glarimy.quiz.service.SimpleScoringService;
 public class ShowCurrentScore extends Activity {
     SimpleScoringService simpleScoringService = new SimpleScoringService();
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
-
     TextView scoreView;
     Score score = new Score();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

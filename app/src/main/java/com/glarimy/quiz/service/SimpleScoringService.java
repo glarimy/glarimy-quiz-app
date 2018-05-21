@@ -8,7 +8,6 @@ import com.glarimy.quiz.model.Score;
 public class SimpleScoringService implements ScoringService {
     Score currentScore = new Score();
 
-
     boolean status;
 
     @Override

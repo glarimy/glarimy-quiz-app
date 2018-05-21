@@ -39,8 +39,6 @@ public class ShowTitle extends Activity {
     Question question = new Question();
     Answer answer = new Answer();
     SimpleScoringService simpleScoringService = new SimpleScoringService();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

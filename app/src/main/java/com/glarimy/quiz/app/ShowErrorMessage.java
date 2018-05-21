@@ -11,7 +11,6 @@ import com.glarimy.quiz.service.GlarimyQuestionService;
 
 public class ShowErrorMessage extends Activity {
     GlarimyQuestionService glarimyQuestionService = new GlarimyQuestionService(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

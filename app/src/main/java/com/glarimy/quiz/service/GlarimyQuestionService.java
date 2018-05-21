@@ -30,7 +30,6 @@ public class GlarimyQuestionService implements QuestionService {
     Question question = new Question();
     Answer answer = new Answer();
 
-
     public GlarimyQuestionService(Context context) {
         this.context = context;
     }
